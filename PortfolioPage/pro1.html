@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WEB PORTFOLIO</title>
+        <style>
+            body{
+                text-align: center;
+                margin-left: 30%;
+            }
+            div{
+                background-color: rgb(197, 151, 191);
+                border-radius: 20px;
+                border: 3px dotted rgb(47, 2, 74);
+                transition: all 1s ease;
+                padding: 10px;
+                width: 600px;
+            }
+            div:hover{
+                transform: scale(1.1);
+            }
+            .main{
+                background-color: rgb(158, 220, 199);
+
+            }
+            img{
+                width: 100px;
+                border-radius: 100px;
+                border: 3px double white;
+                position: relative;
+            }
+            h1,h2,h3{
+                font-family: fantasy;
+            }
+            button{
+                background-color: rgb(121, 129, 136,0);
+                border: 0px;
+                
+            }
+            .sub{
+                background-color: rgb(234, 169, 169,0) ;
+                border: 0;
+            }
+            table,tr,td{
+                padding: 10px;
+                text-align: center;
+                margin-left: 20%;
+            }
+            #edu{
+                background-color: rgb(120, 238, 228);
+                padding: 5px;
+                text-align: center;
+            }
+            th,td{
+                background-color: bisque;
+                border-radius: 10px;
+                border: 3px solid ;
+
+            }
+            .text{
+                color: rgb(63, 49, 1);
+            }
+            ul{
+                font-family: fantasy;
+            }
+            li:hover{
+                transform: scale(1.1);
+            }
+            #skill{
+                background-color: rgb(237, 155, 205);
+            }
+            #exp{
+                background-color: rgb(242, 253, 83);
+            }
+            .joe{
+                width: 400px;
+                border: 0px;
+                transition: all 1s ease;
+            }
+            .joe:hover{
+                transform: scale(1.2);
+            }
+            h1{
+                font-size: 50px;
+            }
+            img:hover{
+                transform: scale(1.1);
+            }
+            #no{
+                display: none;
+            }
+            input{
+                background-color: bisque;
+                border-radius: 20px;
+                border: 2px solid brown;
+                font-family: fantasy;
+            }
+            input:hover{
+                transform: scale(1.3);
+            }
+            
+            #giga{
+                padding-left: 10px;
+                padding-right: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <h1>
+            <img src="https://media.licdn.com/dms/image/v2/D4E03AQGn-msLeZ-fQA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1725884908106?e=1755129600&v=beta&t=VYyEhXrS6a4K0EPOQNGPtPTPRVJyn3vTAnPHceXPvDM">
+        HARISH ANANDH</h1>
+        <input type="button" value="PHONE" id="but" onclick="phNo()"/>
+        <h3 id="no">9891586019</h3>
+        <h4>RESPONSIVE WEB DESIGNER</h4>
+        </div><br>
+        <div class="sub">
+            <div>
+        <a href="#edu"><button>
+        
+            <h3>EDUCATION</h3>
+        </button></a></div><br>
+        <div>
+        <a href="#exp"><button>
+        
+            <h3>EXPERIENCE</h3>
+        </button></a></div><br>
+        <div>
+        <a href="#skill"><button>
+        
+            <h3>SKILLS</h3>
+        </button></a></div><br>
+        <div>
+        <a href="#ach"><button>
+        
+            <h3>ACHIEVEMENTS</h3>
+        </button></a></div><br>
+        
+        </div><br><br> <br>
+        <div id="edu">
+            <h1 class="text">EDUCATION</h1>
+            <table>
+             <THEAD>
+                <tr>
+                    <th>SCHOOL/COLLEGE</th>
+                    <th>STD</th>
+                    <th>GPA</th>
+                </tr>
+             </THEAD>
+             <TBODY>
+                <tr>
+                    <td>ANNA UNIVERSITY, CHENNAI  </td>
+                    <td>B.Tech IT</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                    <td>VOJC, HYDERABAD  </td>
+                    <td>12th</td>
+                    <td>9.78</td>
+                </tr>
+                <tr>
+                    <td>SGTS, HYDERABAD  </td>
+                    <td>10th</td>
+                    <td>9.7</td>
+                </tr>
+
+             </TBODY>
+            </table>
+        </div><br><br> <br>
+        <div id="skill">
+            <h1 class="text">SKILLS</h1>
+            <ul>
+                <li>WEB OPTIMISATION
+                </li>
+                <li>WEB DESIGN
+                </li>
+                <li>LEADERSHIP
+                </li>
+                <li>COMMUNICATION SKILLS
+                </li>
+            </ul>
+        </div><br><br> <br>
+        <div id="exp">
+            <h1 class="text">EXPERIENCE</h1>
+            <table id="giga">
+             <THEAD>
+                <tr>
+                    <th>LANGUAGES</th>
+                    <th>STD</th>
+                </tr>
+             </THEAD>
+             <TBODY>
+                <tr>
+                    <td>C PROGRAMMING</td>
+                    <td>B.Tech IT ANNA UNIVERSITY</td>
+                </tr>
+                <tr>
+                    <td>JAVA SCRIPT</td>
+                    <td>B.Tech IT ANNA UNIVERSITY</td>
+                </tr>
+                <tr>
+                    <td>RESPONSIVE WEB DESIGN </td>
+                    <td>FREECODECAMP</td>
+                </tr>
+
+             </TBODY>
+            </table>
+        </div><br><br> <br>
+       <div id="ach">
+            <h1 class="text">ACHIEVEMENTS</h1>
+            <h2>SECURED 3RD PLACE IN INTERCOLLEGE HACKATHON</h2>
+            <img class="joe" src="https://media.licdn.com/dms/image/v2/D4E2DAQH0As6E35Bsxg/profile-treasury-image-shrink_800_800/B4EZX8RyllHcAY-/0/1743694279558?e=1750140000&v=beta&t=CzJXO6WOyvA9zk2HZMqJt7LdlDDjxV_mh4yd4YhU8Q8" alt="ach"/>
+            <h2>ACHIEVED MEDAL IN PROCUREMENT OF LAKE </h2>
+            <img class="joe" src="https://media.licdn.com/dms/image/v2/D4E2DAQEXN-wMO_nr8w/profile-treasury-image-shrink_1920_1920/profile-treasury-image-shrink_1920_1920/0/1722839801521?e=1750140000&v=beta&t=odi7PwukMZyvb13eqeQkjzXXNd8Fv6ztpLgrxdxPX7A" alt="ach"/>
+        </div><br> <br>
+    </body>
+    <script>
+        function phNo(){
+            let name = document.getElementById("no");
+            let button = document.getElementById("but");
+            name.style.display="block";
+             button.style.display="none";
+        }
+    </script>
+</html>
