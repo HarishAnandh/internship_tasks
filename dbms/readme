@@ -1,1 +1,15 @@
+CODES SQL
+1.CREATE TABLE student(id int,name varchar(30),dname varchar(30),cred int,FOREIGN KEY(id) REFERENCES takes(id));
+2.ALTER TABLE takes ADD CONSTRAINT id UNIQUE (id);
+3.CREATE TABLE instructor(id int,name varchar(30),dname varchar(30),salary int,FOREIGN KEY(dname) REFERENCES course(dname),FOREIGN KEY(id) REFERENCES advisor(aid));
+4.CREATE TABLE advisor(aid int,iid int,PRIMARY KEY(aid),UNIQUE(iid));
+5.CREATE TABLE department(dname varchar(30),building int,budget int,FOREIGN KEY(dname) REFERENCES course(dname));
+5.CREATE TABLE course(cid int,title varchar(30),dname varchar(30),credits int,FOREIGN KEY(cid) REFERENCES prereq(cid),PRIMARY KEY(dname));
+6.CREATE TABLE prereq(cid int,pid int, PRIMARY KEY(cid),UNIQUE(pid));
+7.CREATE TABLE time(tid int,day varchar(30),FOREIGN KEY(tid) REFERENCES section(tid));
+8.CREATE TABLE classroom(building int,rno int,capacity int,FOREIGN KEY(building,rno) REFERENCES section(building,rno));
+9.CREATE TABLE section( cid int, sid int, semester int,year int,building int,rno int,tid int,PRIMARY KEY(building,rno),UNIQUE(tid),FOREIGN KEY (cid, sid, semester, year) REFERENCES takes(cid, sid, semester, year));
+10.CREATE TABLE teachers(id int,cid int,sid int,semester int,year int,PRIMARY KEY(id,cid,sid,semester,year));
+11.CREATE TABLE advisor(aid int,iid int,PRIMARY KEY(aid,iid));
+12.CREATE TABLE takes(id int, cid int,sid int,semester int,year int,grade int,PRIMARY KEY(cid,sid,semester,year));
 
