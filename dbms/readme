@@ -12,4 +12,139 @@ CODES SQL
 10.CREATE TABLE teachers(id int,cid int,sid int,semester int,year int,PRIMARY KEY(id,cid,sid,semester,year));
 11.CREATE TABLE advisor(aid int,iid int,PRIMARY KEY(aid,iid));
 12.CREATE TABLE takes(id int, cid int,sid int,semester int,year int,grade int,PRIMARY KEY(cid,sid,semester,year));
+BASIC
+SELECT name
+FROM student
+WHERE tot_cred > 100;
+
+SELECT t.course_id, t.grade
+FROM student s
+JOIN takes t ON s.ID = t.ID
+WHERE s.name = 'Tanaka';
+
+SELECT DISTINCT i.ID, i.name
+FROM instructor i
+JOIN teaches te ON i.ID = te.ID
+JOIN course c ON te.course_id = c.course_id
+WHERE c.dept_name = 'Comp. Sci.';
+SELECT DISTINCT c.course_id, c.title
+FROM course c
+WHERE c.course_id IN (
+    SELECT course_id
+    FROM section
+    WHERE semester = 'Fall'
+)
+AND c.course_id IN (
+    SELECT course_id
+    FROM section
+    WHERE semester = 'Spring'
+);
+
+SELECT name
+FROM instructor
+WHERE dept_name = 'Comp. Sci.';
+SELECT DISTINCT c.course_id, c.title
+FROM instructor i
+JOIN teaches t ON i.ID = t.ID
+JOIN course c ON t.course_id = c.course_id
+WHERE i.name = 'Srinivasan';
+SELECT DISTINCT i.name
+FROM instructor i
+JOIN teaches t ON i.ID = t.ID
+WHERE t.semester = 'Spring' AND t.year = 2009;
+SELECT DISTINCT c.course_id, c.title
+FROM instructor i
+JOIN teaches t ON i.ID = t.ID
+JOIN course c ON t.course_id = c.course_id
+WHERE i.name = 'Srinivasan';
+INTERMEDIATE
+SELECT COUNT(*) AS num_instructors
+FROM instructor i
+WHERE NOT EXISTS (
+    SELECT 1 FROM teaches t WHERE i.ID = t.ID
+);
+INSERT INTO instructor VALUES ('99999', 'Test_Instructor', 'Physics', 60000);
+SELECT building, SUM(capacity) AS total_capacity
+FROM classroom
+GROUP BY building;
+SELECT building, SUM(capacity) AS total_capacity
+FROM classroom
+GROUP BY building;
+SELECT MAX(teacher_count) AS max_teachers
+FROM (
+    SELECT course_id, sec_id, semester, year, COUNT(ID) AS teacher_count
+    FROM teaches
+    GROUP BY course_id, sec_id, semester, year
+) AS temp;
+SELECT d.dept_name, COUNT(i.ID) AS num_instructors
+FROM department d
+LEFT JOIN instructor i ON d.dept_name = i.dept_name
+GROUP BY d.dept_name
+ORDER BY num_instructors DESC;
+SELECT s.ID, s.name, SUM(c.credits) AS total_completed_credits
+FROM student s
+JOIN takes t ON s.ID = t.ID
+JOIN course c ON t.course_id = c.course_id
+WHERE t.grade IS NOT NULL AND t.grade <> 'F'
+GROUP BY s.ID, s.name;
+SELECT COUNT(DISTINCT t.ID) AS num_students
+FROM takes t
+JOIN teaches te ON t.course_id = te.course_id
+                AND t.sec_id = te.sec_id
+                AND t.semester = te.semester
+                AND t.year = te.year
+JOIN instructor i ON te.ID = i.ID
+WHERE i.name = 'Srinivasan';
+
+SELECT i.name, i.dept_name, i.salary
+FROM instructor i
+WHERE i.salary = (
+    SELECT MAX(i2.salary)
+    FROM instructor i2
+    WHERE i2.dept_name = i.dept_name
+);
+WITH SrinivasanCourses AS (
+    SELECT DISTINCT t.course_id
+    FROM teaches t
+    JOIN instructor i ON t.ID = i.ID
+    WHERE i.name = 'Srinivasan'
+)
+SELECT s.ID, s.name
+FROM student s
+WHERE NOT EXISTS (
+    SELECT course_id
+    FROM SrinivasanCourses sc
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM takes t
+        WHERE t.ID = s.ID
+          AND t.course_id = sc.course_id
+    )
+);
+SELECT dept_name, SUM(salary) AS total_salary
+FROM instructor
+GROUP BY dept_name;
+WITH CourseCounts AS (
+    SELECT i.ID, COUNT(DISTINCT t.course_id) AS num_courses
+    FROM instructor i
+    JOIN teaches t ON i.ID = t.ID
+    GROUP BY i.ID
+),
+MaxInstructor AS (
+    SELECT ID
+    FROM CourseCounts
+    WHERE num_courses = (SELECT MAX(num_courses) FROM CourseCounts)
+)
+SELECT s.name
+FROM student s
+JOIN advisor a ON s.ID = a.s_ID
+WHERE a.i_ID IN (SELECT ID FROM MaxInstructor);
+
+
+
+
+
+
+
+
 
