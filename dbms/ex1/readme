@@ -1,1 +1,52 @@
+CREATE TABLE departments(did int PRIMARY KEY,dname varchar(100) UNIQUE NOT NULL);
+CREATE TABLE employees(eid int PRIMARY KEY,fname varchar(30),lname varchar(30),did int REFERENCES departments(did), salary NUMERIC(10,2), hire_date DATE DEFAULT CURRENT_DATE);
+1.CREATE PROCEDURE insertdept(p_did IN INT,p_dname IN VARCHAR(100)) LANGUAGE plpgsql AS $$ BEGIN INSERT INTO DEPARTMENTS (did ,dname) VALUES (p_did , p_dname);
+END;
+$$;
+CALL insertdept(108,'civil');
+CREATE OR REPLACE FUNCTION getempbydname(deptname TEXT)
+ RETURNS TABLE (eid INT,fname TEXT, lname TEXT, did int)AS $$
+ BEGIN
+ RETURN QUERY
+ SELECT e.eid,e.fname,e.lname,d.dname
+ FROM employees e
+ JOIN departments d ON e.did = d.did
+WHERE d.dname = deptname;
+END;
+ $$ LANGUAGE plpgsql;
+2.CREATE OR REPLACE FUNCTION getempbydname(deptname VARCHAR(30))
+RETURNS TABLE (
+    eid INT,
+    fname VARCHAR(50),
+    lname VARCHAR(50)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT e.eid, e.fname, e.lname
+    FROM employees e
+    JOIN departments d ON e.did = d.did
+    WHERE d.dname = deptname;
+END;
+$$;
+3.CREATE OR REPLACE PROCEDURE salaryhike10(deptname VARCHAR(30))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+UPDATE employees e SET salary = 1.1 * salary FROM departments d WHERE d.did  = e.did AND d.dname = deptname;
+END;
+$$;
+CREATE OR REPLACE FUNCTION newemp(empid INT , f_name VARCHAR(30), l_name VARCHAR(30),deptid INT ,esalary INT , edate date)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+INSERT INTO employees(eid,fname, lname, did, hire_date)VALUES (empid, f_name, l_name, deptid,esalary,edate);
+END;
+$$;
+CREATE OR REPLACE FUNCTION newemp(empid INT , f_name VARCHAR(30), l_name VARCHAR(30),deptid INT ,esalary int , edate date) RETURNS VOID AS $$
+ BEGIN
+INSERT INTO employees(eid,fname, lname, did,salary, hire_date)VALUES (empid, f_name, l_name, deptid,esalary,edate);
+ END;
+$$ LANGUAGE plpgsql;
 
