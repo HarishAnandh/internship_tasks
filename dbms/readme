@@ -300,6 +300,8 @@ CREATE FUNCTION
 execute function auditlog4();
 CREATE TRIGGER
  select * from archemp;
-
+create trigger afterdel after delete on employee for each row
+execute function auditlog4();
+CREATE TRIGGER
 
 
