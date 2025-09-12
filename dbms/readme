@@ -261,7 +261,19 @@ CREATE FUNCTION
  execute function auditlog();
 CREATE TRIGGER
 INSERT INTO employee VALUES (2024115099, 'Harish Anandh', 104000);
-
+ create or replace function auditlog1() returns trigger as $$
+begin
+insert into audit(action, adate,details) values ('INSERTED',current_date,new.name);
+ return new;
+ end;
+ $$ language plpgsql;
+ create trigger upuser after
+ insert on employee
+ for each row
+ execute function auditlog1();
+CREATE TRIGGER
+ INSERT INTO employee VALUES (2024115097,'ruba',100000);
+INSERT 0 1
 
 
 
