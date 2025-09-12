@@ -274,8 +274,20 @@ insert into audit(action, adate,details) values ('INSERTED',current_date,new.nam
 CREATE TRIGGER
  INSERT INTO employee VALUES (2024115097,'ruba',100000);
 INSERT 0 1
-
-
+ create or replace function auditlog3() returns trigger as $$
+ begin
+ if NEW.salary < OLD.salary THEN
+  RAISE EXCEPTION 'NEW SALARY LESS THAN OLD SALARY';
+ END IF;
+ return new;
+ end;
+ $$ language plpgsql;
+CREATE FUNCTION
+ create trigger insteadof_update before update on employee
+for each row
+ execute function auditlog3();
+CREATE TRIGGER
+select * from employee;
 
 
 
