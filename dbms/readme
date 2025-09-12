@@ -288,7 +288,18 @@ for each row
  execute function auditlog3();
 CREATE TRIGGER
 select * from employee;
-
+create or replace function auditlog4() returns trigger as $$
+begin
+insert into archemp(empname) values (old.name);
+return old;
+ end;
+ $$ language plpgsql;
+CREATE FUNCTION
+ delete from employee where eid = 2024115315;
+ create trigger delemp before delete on employee for each row
+execute function auditlog4();
+CREATE TRIGGER
+ select * from archemp;
 
 
 
