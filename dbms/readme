@@ -242,7 +242,25 @@ CREATE OR REPLACE FUNCTION newemp(empid INT , f_name VARCHAR(30), l_name VARCHAR
 INSERT INTO employees(eid,fname, lname, did,salary, hire_date)VALUES (empid, f_name, l_name, deptid,esalary,edate);
  END;
 $$ LANGUAGE plpgsql;
+--------------------------------------
+triggers
+ CREATE TABLE employee(eid int primary key,name varchar(100),salary decimal(10,2) );
+ CREATE TABLE audit(lid serial primary key, action varchar(50), adate timestamp default current_timestamp, details VARCHAR(255));
 
+
+create or replace function auditlog() returns  trigger as $$
+ begin
+ insert into audit (action,adate,details) values ('INSERTED',current_timestamp,current_user);
+ return new;
+ end;
+ $$ language plpgsql;
+CREATE FUNCTION
+ create trigger adduser after
+ insert on employee
+ for each row
+ execute function auditlog();
+CREATE TRIGGER
+INSERT INTO employee VALUES (2024115099, 'Harish Anandh', 104000);
 
 
 
