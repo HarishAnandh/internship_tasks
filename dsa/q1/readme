@@ -1,1 +1,157 @@
+#include #include
+struct treenode {
+int element;
+struct treenode *left;
+struct treenode *right;
+};
 
+typedef struct treenode *node;
+typedef node tree;
+
+node findMin(tree T) {
+if (T == NULL) return NULL;
+else if (T->left == NULL) return T;
+else return findMin(T->left);
+}
+
+node findMax(tree T) {
+if (T == NULL) return NULL;
+else if (T->right == NULL) return T;
+else return findMax(T->right);
+}
+
+void preorder(tree T) {
+if (T != NULL) {
+printf("%d ", T->element);
+preorder(T->left);
+preorder(T->right);
+}
+}
+
+void postorder(tree T) {
+if (T != NULL) {
+postorder(T->left);
+postorder(T->right);
+printf("%d ", T->element);
+}
+}
+
+void inorder(tree T) {
+if (T != NULL) {
+inorder(T->left);
+printf("%d ", T->element);
+inorder(T->right);
+}
+}
+
+node find(int x, tree T) {
+if (T == NULL) return NULL;
+if (x < T->element) return find(x, T->left);
+else if (x > T->element) return find(x, T->right);
+else return T;
+}
+
+tree insert(int x, tree T) {
+if (T == NULL) {
+T = (struct treenode *)malloc(sizeof(struct treenode));
+if (T == NULL) {
+printf("Fatal error\n");
+
+} else {
+T->element = x;
+T->left = T->right = NULL;
+}
+} else if (x < T->element)
+T->left = insert(x, T->left);
+else if (x > T->element)
+T->right = insert(x, T->right);
+return T;
+}
+
+tree delete(int x, tree T) {
+node temp;
+if (T == NULL) return NULL;
+else if (x < T->element)
+T->left = delete(x, T->left);
+else if (x > T->element)
+T->right = delete(x, T->right);
+else {
+if (T->left != NULL && T->right != NULL) {
+temp = findMin(T->right);
+T->element = temp->element;
+T->right = delete(temp->element, T->right);
+} else {
+temp = T;
+if (T->left == NULL)
+T = T->right;
+else if (T->right == NULL)
+T = T->left;
+free(temp);
+}
+}
+return T;
+}
+tree makeEmpty(tree T) {
+if (T != NULL) {
+makeEmpty(T->left);
+makeEmpty(T->right);
+free(T);
+}
+return NULL;
+}
+int main() {
+tree T = NULL;
+
+T = insert(50, T); printf("Inserted\n%d\n", 50);
+T = insert(30, T); printf("Inserted\n%d\n", 30);
+T = insert(20, T); printf("Inserted\n%d\n", 20);
+T = insert(40, T); printf("Inserted\n%d\n", 40);
+T = insert(70, T); printf("Inserted\n%d\n", 70);
+T = insert(60, T); printf("Inserted\n%d\n", 60);
+T = insert(80, T); printf("Inserted\n%d\n", 80);
+
+node foundNode = find(40, T);
+if (foundNode != NULL)
+printf("Search Element: %d Found\n", foundNode->element);
+else
+printf("Element not found\n");
+
+printf("In-order:\n");
+inorder(T);
+printf("\n");
+
+printf("Pre-order:\n");
+preorder(T);
+printf("\n");
+
+printf("Post-order:\n");
+postorder(T);
+printf("\n");
+
+printf("Find Min:\n%d\n", findMin(T)->element);
+printf("Find Max:\n%d\n", findMax(T)->element);
+
+printf("Delete 20:\n");
+T = delete(20, T);
+printf("In-order: ");
+inorder(T);
+printf("\n");
+
+printf("Delete 30:\n");
+T = delete(30, T);
+printf("In-order: ");
+inorder(T);
+printf("\n");
+
+printf("Delete 50:\n");
+T = delete(50, T);
+printf("In-order: ");
+inorder(T);
+printf("\n");
+
+printf("Make Empty:\n");
+T = makeEmpty(T);
+if (T == NULL) printf("The tree is empty\n");
+
+return 0;
+}
