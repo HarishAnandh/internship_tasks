@@ -155,3 +155,209 @@ if (T == NULL) printf("The tree is empty\n");
 
 return 0;
 }
+
+
+
+
+------------------------------------------------------------------------------------------------
+
+PRIORITY QUEUE:
+
+
+
+
+
+#define MINSIZE 5           // Minimum allowed size for the priority queue
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for the priority queue (min-heap)
+struct priorityQueue {
+    int *arr;               // Pointer to the array storing heap elements
+    int size;               // Current number of elements in the heap
+    int capacity;           // Maximum capacity of the heap
+};
+
+typedef struct priorityQueue *pq;  // pq is a pointer to the priorityQueue structure
+
+// Function to initialize the priority queue with a given capacity
+pq initialize(int maxelements) {
+    pq h;
+    if (maxelements < MINSIZE)
+        printf("Smaller size\n");   // If requested size is smaller than minimum, print warning
+    else {
+        // Allocate memory for the priority queue structure
+        h = (struct priorityQueue*) malloc(sizeof(struct priorityQueue));
+        if (h == NULL) 
+            printf("Not allocated\n");  // Memory allocation failed for structure
+        else {
+            // Allocate memory for the array of elements (heap array)
+            // Note: '+1' to make the heap 1-indexed (index 0 unused or set to sentinel)
+            h->arr = (int *) malloc(sizeof(int) * (maxelements + 1));
+            if (h->arr == NULL) 
+                printf("Not allocated\n");  // Memory allocation failed for array
+            else {
+                h->arr[0] = -1;         // Sentinel value, unused but helps simplify parent checks
+                h->size = 0;            // Initially heap is empty
+                h->capacity = maxelements;  // Store max capacity
+                return h;
+            }
+        }
+    }
+    return NULL; // Return NULL if initialization fails
+}
+
+// Check if the priority queue is full
+int isFull(pq h) {
+    return (h->size == h->capacity);
+}
+
+// Check if the priority queue is empty
+int isEmpty(pq h) {
+    return (h->size == 0);
+}
+
+// Insert a new element 'x' into the priority queue (min-heap)
+void insert(pq h, int x) {
+    if (isFull(h)) 
+        printf("Full\n");    // Can't insert if full
+    else {
+        int i;
+        // Increase size and position i at the new last position
+        for (i = ++h->size; h->arr[i / 2] > x; i /= 2) {
+            // Percolate up: move parent down if greater than x
+            h->arr[i] = h->arr[i / 2];
+        }
+        // Place x at correct position to maintain heap property
+        h->arr[i] = x;
+    }
+}
+
+// Return the minimum element (root of min-heap)
+int findmin(pq h) {
+    if (!isEmpty(h))
+        return h->arr[1];  // Root element at index 1
+    else 
+        return -1;         // Indicate empty heap
+}
+
+// Delete and return the minimum element from the priority queue
+int deletemin(pq h) {
+    int i, child;
+    int min, lastelement;
+
+    if (isEmpty(h)) 
+        return -1;  // Heap empty, nothing to delete
+    else {
+        min = h->arr[1];             // Min element is at root
+        lastelement = h->arr[h->size--]; // Take last element and reduce heap size
+        // Percolate down to restore heap property
+        for (i = 1; 2 * i <= h->size; i = child){
+            child = 2 * i;
+            // If right child exists and is smaller, use the right child
+            if (child != h->size && h->arr[child + 1] < h->arr[child])
+                child = child + 1;
+
+            // If last element is bigger than smaller child, move child up
+            if (lastelement > h->arr[child])
+                h->arr[i] = h->arr[child];
+            else
+                break;
+        }
+        // Place last element in correct position
+        h->arr[i] = lastelement;
+        return min; // Return the deleted minimum element
+    }
+}
+
+// Function to perform heap sort and print sorted elements
+void heapsort(pq h) {
+    if (isEmpty(h)) {
+        printf("empty\n");
+    }
+    else {
+        // Create temporary array to hold sorted elements
+        int *temparr = (int *)malloc(sizeof(int) * h->size);
+        int originalSize = h->size;  // Keep original size since deletemin changes size
+
+        // Extract min repeatedly and store in temparr
+        for (int i = 0; i < originalSize; i++) {
+            temparr[i] = deletemin(h);
+        }
+
+        // Print the sorted elements
+        for (int i = 0; i < originalSize; i++) {
+            printf("%d ", temparr[i]);
+        }
+        printf("\n");
+
+        free(temparr);
+    }
+}
+
+// Display the elements of the priority queue (heap)
+void display(pq h) {
+    if (isEmpty(h)) {
+        printf("PQ is empty\n");
+    }
+    else {
+        for (int i = 1; i <= h->size; i++) {
+            printf("%d ", h->arr[i]);
+        }
+        printf("\n");
+    }
+}
+
+// Main function to test the priority queue operations
+int main() {
+    int choice, x;
+    pq h = initialize(20); // Initialize priority queue with capacity 20
+
+    while (1) {
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                scanf("%d", &x);
+                insert(h, x);           // Insert element
+                break;
+
+            case 2:
+                display(h);             // Display heap elements
+                break;
+
+            case 3:
+                x = findmin(h);         // Find minimum element
+                if (x == -1) 
+                    printf("Empty\n");
+                else 
+                    printf("%d\n", x);
+                break;
+
+            case 4:
+                x = deletemin(h);       // Delete minimum element
+                if (x == -1) 
+                    printf("PQ is empty\n");
+                else {
+                    printf("deleted - %d\n", x);
+                }
+                break;
+
+            case 5:
+                display(h);             // Display again (redundant, but in menu)
+                break;
+
+            case 6:
+                heapsort(h);            // Perform heap sort and print sorted elements
+                break;
+
+            case 7:
+                exit(0);                // Exit program
+                break;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
+
