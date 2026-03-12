@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<time.h>
 #include<pthread.h>
-#define ITER 2000000000LL
+#define ITER 500000000LL
 void *work(void* arg){
    volatile long long i;
    for(int i = 0;i< ITER;i++);
