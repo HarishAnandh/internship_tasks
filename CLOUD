@@ -1,0 +1,6 @@
+q5:
+
+curl -LO raw.githubusercontent.com/prateekrajput08/Arcade-Google-Cloud-Labs/refs/heads/main/Build%20Infrastructure%20with%20Terraform%20on%20Google%20Cloud%3A%20Challenge%20Lab/TechCode.sh
+sudo chmod +x TechCode.sh 
+./TechCode.sh
+
