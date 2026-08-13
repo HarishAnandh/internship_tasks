@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Internal DTD Declaration Begin -->
+<!DOCTYPE university [
+    <!ELEMENT university (department+, course+)>
+    
+    <!ELEMENT department (name, budget)>
+    <!ATTLIST department id ID #REQUIRED>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT budget (#PCDATA)>
+    
+    <!ELEMENT course (title, credits)>
+    <!ATTLIST course id ID #REQUIRED>
+    <!ATTLIST course dept_id CDATA #REQUIRED>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT credits (#PCDATA)>
+]>
+<!-- Internal DTD Declaration End -->
+
+<!-- XML Data Begins Here -->
+<university>
+    <department id="CS">
+        <name>Computer Science</name>
+        <budget>1500000</budget>
+    </department>
+    
+    <course id="CS101" dept_id="CS">
+        <title>Intro to Programming</title>
+        <credits>4</credits>
+    </course>
+</university>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <root xmlns:xs="http://w3.org"> 
+
+   
+    <xs:schema id="UniversitySchema">
+        <xs:element name="university">
+            <xs:complexType>
+                <xs:sequence>
+                    
+                
+                    <xs:element name="department" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="name" type="xs:string"/>
+                                <xs:element name="budget" type="xs:decimal"/>
+                            </xs:sequence>
+                            <xs:attribute name="id" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                    
+                   
+                    <xs:element name="course" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="title" type="xs:string"/>
+                                <xs:element name="credits" type="xs:integer"/>
+                            </xs:sequence>
+                            <xs:attribute name="id" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </xs:schema>
+  
+
+
+    
+    <university>
+        
+        <department id="IT">
+            <name>Information technology</name>
+            <budget>780023</budget>
+        </department>
+        
+        <course id="CS101">
+            <title>ADB</title>
+            <credits>4</credits>
+        </course>
+        
+    </university>
+
+
+</root>

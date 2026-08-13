@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<university>
+
+    <department id="CS">
+        <name>Computer Science</name>
+        <budget>1500000</budget>
+    </department>
+    <department id="MATH">
+        <name>Mathematics</name>
+        <budget>800000</budget>
+    </department>
+
+
+    <course id="CS101" dept_id="CS">
+        <title>Introduction to Programming</title>
+        <credits>4</credits>
+    </course>
+    <course id="MATH201" dept_id="MATH">
+        <title>Linear Algebra</title>
+        <credits>3</credits>
+    </course>
+
+
+    <instructor id="INS101" dept_id="CS">
+        <name>Dr. Alan Turing</name>
+        <salary>95000</salary>
+    </instructor>
+
+   
+    <student id="STU991" dept_id="CS">
+        <name>Grace Hopper</name>
+        <tot_cred>32</tot_cred>
+        <enrolled_courses>
+            <course_ref id="CS101" grade="A" />
+            <course_ref id="MATH201" grade="A-" />
+        </enrolled_courses>
+    </student>
+
+</university>

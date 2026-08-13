@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<university>
+    <dept id= "IT" >
+       <name> Information Tech </name>
+       <budget> 485950 </budget>
+       <people> 3400 </people>
+    
+    <course id="IT2304" dept_id="IT">
+       <title> ADB </title>
+       <credits> 4 </credits>
+    </course>
+    <teacher id = "T01" dept_id="IT">
+     <name>Dr. SriRam S </name>
+     <salary> 100000000 </salary>
+    
+    </teacher>
+    <student id = "S099" dept_id="IT">
+        <name>Harish Anandh</name>
+        <id> 2024115099 </id>
+        <age> 19 </age>
+        <enrolled_courses>
+         <course_ref id = "IT2304" grade="A" />
+        </enrolled_courses>
+
+    </student>
+
+     </dept>
+</university>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<university xmlns:xsi="http://w3.org"
+            xsi:noNamespaceSchemaLocation="ex1.xsd">
+
+    <department id="CS">
+        <name>Computer Science</name>
+        <budget>1500000</budget>
+    </department>
+    
+    <course id="CS101">
+        <title>Introduction to Programming</title>
+        <credits>4</credits>
+    </course>
+
+</university>
