@@ -1,1 +1,110 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.*;
+import java.time.*;
+import java.time.format.*;
+import java.util.regex.*;
 
+
+class LimitReachedException extends Exception {
+    LimitReachedException(String msg){
+        super(msg);
+    }
+}
+class Employee {
+    int id;
+    double salary;
+    Employee(int id,double salary) throws LimitReachedException{
+        this.id = id;
+        if(salary < 5000){
+        this.salary = salary;
+        }
+        else {
+            throw new LimitReachedException("Limit croseed above 5000");
+        }
+    }
+    void display(){
+        System.out.println("id: "+id+"\nsalary: "+salary);
+    }
+}
+class Manager extends Employee{
+    int age;
+   Manager(int id,double salary,int age) throws LimitReachedException{
+       super(id,salary);
+        this.age = age;
+        System.out.println("Manager age: "+age);
+    }
+}
+class Teacher extends Employee{
+    int exp;
+    Teacher(int id,double salary,int exp) throws LimitReachedException{
+         super(id,salary);
+        this.exp =exp;
+       System.out.println("Teacher exp: "+exp);
+    }
+}
+class Main {
+    public static void main(String[] args) {
+         Employee e1 = null;
+       try{
+          e1 = new Manager(101,8000.3,23);
+           
+         
+       }
+        catch(LimitReachedException e){
+            System.out.println(e.getMessage());
+        }
+         try{
+          e1 = new Teacher(101,2000.3,23);
+           
+         
+       }
+        catch(LimitReachedException e){
+            System.out.println(e.getMessage());
+        }
+        if(e1 != null){
+        e1.display();}
+       /* e = new Teacher(101,5600,56);
+        e.display();*/
+       /* StringBuilder d = new StringBuilder("Hello ");
+        d.append(" World");
+        d.insert(5, ",");
+        d.replace(0,5,"Gay");
+        String b = d.toString();
+        System.out.println(d + b);
+
+        ArrayList<String> a= new ArrayList<>();
+        a.add("Harish");
+        a.add("Anandh");
+        //a.remove(1);
+        for(String i : a){
+        System.out.println(i);
+        }
+        
+        HashMap<Integer,String> roll = new HashMap<>();
+        roll.put(101,"Harish");
+        roll.put(102,"Anandh");
+        
+        System.out.println(roll.size());
+        
+        LocalDateTime d = LocalDateTime.now();
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        String n = d.format(f);
+        System.out.println(n);
+        
+        String mail = "harish6anandh@gmail.com";
+        
+        Pattern p = Pattern.compile("^[a-zA-Z0-9._%]+@[a-zA-Z._]+\\.[a-zA-Z]{2,4}$");
+        Matcher m = p.matcher(mail);
+
+        if(m.matches()){
+            System.out.println("True");
+        }
+        else {
+            System.out.println("False");
+        }
+        */
+        
+        
+    }
+}
